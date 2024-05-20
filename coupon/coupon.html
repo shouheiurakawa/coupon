@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIGITEC SIGN 自動精算システム</title>
+
+  <!-- リセットCSS -->
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <!-- CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  
+  <header class="coupon-header">
+    <div class="bread-list">お問い合わせ > クーポン > CSV取り込み・一般画面</div>
+  </header>
+
+  <div class="coupon-title-outer">
+    <h2 class="coupon-title">⚫︎ クーポン　CSV取り込み・一覧画面</h2>
+  </div>
+
+  <div class="coupon-csv-successOrFail">
+    <div class="coupon-csv-success">
+      <p>・</p>
+      <p class="coupon-csv-success-text">
+        CSVファイルが正常に処理されました。<br>
+        1,000件を取り込みました。一覧を確認してください。
+      </p>
+    </div>
+    <div class="coupon-csv-fail">
+      <p>・</p>
+      <p class="coupon-csv-fail-text">
+        エラーが発生しました。CSVファイルの読み込みに失敗しました。<br>
+        99行目にエラーがあります。
+      </p>
+    </div>
+  </div>
+
+  <div class="coupon-csv-insert-button-fierd">
+    <div class="coupon-csv-filechoose-button-outer">
+      <button class="coupon-csv-fileChoice-button">
+        <p class="coupon-csv-fileChoice-button-text" id="choose-file">ファイルを選択</p>
+      </button>
+      <p class="coupon-csv-fileChoice-choicedFile">見積もり提案20240901.csv</p>
+    </div>
+    <div class="coupon-csv-insert-button-outer">
+      <button class="coupon-csv-insert-button">
+        <p class="coupon-csv-insert-button-text" id="csv-insert">CSV取り込み</p>
+      </button>
+    </div>
+  </div>
+
+
+  <form class="form-field" method="POST" action="">
+    <div class="coupon-contact-form">
+      <div class="item">
+        <div class="label">
+          <h2 class="label-name">絞り込み</h2>
+        </div>
+
+        <div class="label-section">
+          <!-- クーポン名 -->
+          <div class="couponName label-section-inner label-section-width1">
+            <label class="label-title-margin">クーポン名</label>
+            <input type="text" class="inputs coupon-inputs" name="couponName">
+          </div>
+
+          <!-- クーポンコード -->
+          <div class="couponCode label-section-inner label-section-width1">
+            <label class="label-title-margin">クーポンコード</label>
+            <input type="text" class="inputs coupon-inputs" name="couponCode">
+          </div>
+
+          <!-- 適用期間有無 -->
+          <div class="applicablePeriodValid label-section-inner label-section-width1">
+            <label class="label-title-margin">適用期間有無</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="all" class="coupon-insertInformation-box" name="applicablePeriodValid">全て</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="Yes" class="coupon-insertInformation-box" name="applicablePeriodValid">適用期間有</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="None" class="coupon-insertInformation-box" name="applicablePeriodValid">適用期間無</label>
+          </div>
+
+          <!-- 適用期間 -->
+          <div class="coupon-insertInformation-applicationPeriod label-section-inner label-section-width2">
+            <label class="label-title-margin">適用期間 　
+              <input type="date" class="coupon-input-date" name="applicationPeriodStart">
+              〜
+              <input type="date" class="coupon-input-date" name="applicationPeriodEnd">
+            </label>
+          </div>
+
+          <!-- 利用可不可 -->
+          <div class="coupon-insertInformation-usable label-section-inner label-section-width1">
+            <label class="label-title-margin">利用可不可</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="all" class="coupon-insertInformation-box" name="usable">全て</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="valid" class="coupon-insertInformation-box" name="usable">利用可</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="invalid" class="coupon-insertInformation-box" name="usable">利用不可</label>
+          </div>
+
+          <!-- 割引タイプ -->
+          <div class="coupon-insertInformation-discountType label-section-inner label-section-width1">
+            <label class="label-title-margin">割引タイプ</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="all" class="coupon-insertInformation-box" name="discountType">全て</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="discountAmount" class="coupon-insertInformation-box" name="discountType">値引</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="discountRatio" class="coupon-insertInformation-box" name="discountType">割引率</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="extraWages" class="coupon-insertInformation-box" name="discountType">割増率</label>
+          </div>
+          
+          <!-- 適用納期日 -->
+          <div class="coupon-insertInformation-deadline label-section-inner label-section-width2">
+            <label class="label-title-margin">適用納期日
+              <input type="date" class="coupon-input-date" name="deadlineStart">
+              〜
+              <input type="date" class="coupon-input-date" name="deadlineEnd">
+            </label>
+          </div>
+
+          <!-- 仕様 -->
+          <div class="coupon-insertInformation-specification label-section-inner label-section-width2">
+            <label class="label-title-margin">仕様</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="all" class="coupon-insertInformation-box" name="specification">全て</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="proSmart" class="coupon-insertInformation-box" name="specification">PRO SMART</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="proChannel" class="coupon-insertInformation-box" name="specification">PRO CHANNEL</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="neo" class="coupon-insertInformation-box" name="specification">NEO</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="free" class="coupon-insertInformation-box" name="specification">FREE</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="board" class="coupon-insertInformation-box" name="specification">BOARD</label>
+            <label class="coupon-insertInformation-choice"><input type="radio" value="letter" class="coupon-insertInformation-box" name="specification">LETTER</label>
+          </div>
+
+          <!-- 種類 -->
+          <div class="coupon-insertInformation-kinds label-section-inner coupon-label-kinds">
+            <label class="label-title-margin coupon-label-kinds-title">種類</label>
+            <div class="coupon-kinds-list">
+              <label class="coupon-insertInformation-choice"><input type="radio" value="all" class="coupon-insertInformation-box" name="kinds">全て</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="PROFRONT-SMART-FRONT" class="coupon-insertInformation-box" name="kinds">正面発光（PROFRONT,SMART FRONT）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="PROSIDE-PROSIDE2-SMARTSIDE" class="coupon-insertInformation-box" name="kinds">側面発光（PROSIDE,PROSIDE2,SMARTSIDE）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="PROFRONT-SIDE" class="coupon-insertInformation-box" name="kinds">正面側面発光（PROFRONT/SIDE）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="PRO-FRONT-BACK-SMART-FRONT-BACK" class="coupon-insertInformation-box" name="kinds">正面背面発光（PRO FRONT BACK,SMART FRONT/BACK）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="PRO-SIDE-EDGE-SMART-SIDE-EDGE" class="coupon-insertInformation-box" name="kinds">裏板側面発光（PRO SIDE EDGE,SMART SIDE EDGE）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="PRO-FRONT-SID-EDGE-SMART-FRONT-SIDE-BACK" class="coupon-insertInformation-box" name="kinds">正面裏板側面発光（PRO FRONT/SID EDGE,SMART FRONT SIDE BACK）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="PROBACK-SMARTBACK" class="coupon-insertInformation-box" name="kinds">背面発光（PROBACK,SMARTBACK）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="DROP" class="coupon-insertInformation-box" name="kinds">点発光（DROP)</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="DIA" class="coupon-insertInformation-box" name="kinds">点発光（DIA）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="SPARKLE" class="coupon-insertInformation-box" name="kinds">煌めき発光（SPARKLE）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="SLIT" class="coupon-insertInformation-box" name="kinds">中央ライン発光（SLIT）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="PRO-FRONT-CHANNEL" class="coupon-insertInformation-box" name="kinds">正面発光（縁なし）（PRO FRONT CHANNEL）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="PRO-BACK-CHANNEL" class="coupon-insertInformation-box" name="kinds">背面発光（PRO BACK CHANNEL）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="PRO-FRONT-FRAME-CHANNEL" class="coupon-insertInformation-box" name="kinds">正面発光（縁あり）（PRO FRONT FRAME CHANNEL）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="PRO-FRONT-BACK-CHANNEL" class="coupon-insertInformation-box" name="kinds">正面背面発光（縁あり）（PRO FRONT/BACK CHANNEL）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="NEO-NEON" class="coupon-insertInformation-box" name="kinds">270°発光（台座付き）（NEO NEON）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="NEO-POP" class="coupon-insertInformation-box" name="kinds">半円発光（台座付き）（NEO POP）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="NEON360" class="coupon-insertInformation-box" name="kinds">全周360°発光（NEON360）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="FREE" class="coupon-insertInformation-box" name="kinds">FREE</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="BOARD-FRONT" class="coupon-insertInformation-box" name="kinds">正面発光（BOARD FRONT）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="BOARD-SIDE" class="coupon-insertInformation-box" name="kinds">側面発光（BOARD SIDE）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="BOARD-FLAT" class="coupon-insertInformation-box" name="kinds">フラット型正面発光（BOARD FLAT）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="BOARD-POP" class="coupon-insertInformation-box" name="kinds">R面取り発光（着色無し）（BOARD POPクリア）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="BOARD-NEON-CLEAR" class="coupon-insertInformation-box" name="kinds">丸型発光（着色無し）（BOARD NEONクリア）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="BOARD-NEON-COLOR" class="coupon-insertInformation-box" name="kinds">丸型発光（カラー着色）（BOARD NEONカラー）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="LETTER" class="coupon-insertInformation-box" name="kinds">切り文字（LETTER）</label>
+              <label class="coupon-insertInformation-choice"><input type="radio" value="SUN" class="coupon-insertInformation-box" name="kinds">蓄光サイン（SUN）</label>
+
+            </div>
+          </div>
+
+          <!-- 取り込み日時 -->
+          <div class="coupon-insertInformation-insertDay label-section-inner label-section-width2">
+            <label class="label-title-margin">取り込み日時
+              <input type="date" class="coupon-input-date" name="insertDayStart">
+              〜
+              <input type="date" class="coupon-input-date" name="insertDayEnd">
+            </label>
+          </div>
+
+
+        </div>
+        <div class="search-button-area">
+          <button id="search-block">検索</button>
+          <button id="reset-block">リセット</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="coupon-list">
+    <table class="coupon-list-inner">
+      <tr>
+        <th class="sticky_col coupon-list-item"></th>
+        <th class="sticky_col coupon-list-item">取り込み日時</th>
+        <th class="sticky_col coupon-list-item">クーポン名</th>
+        <th class="sticky_col coupon-list-item">クーポンコード</th>
+        <th class="sticky_col coupon-list-item">適用期間有無</th>
+        <th class="sticky_col coupon-list-item">適用開始日</th>
+        <th class="sticky_col coupon-list-item">適用終了日</th>
+        <th class="sticky_col coupon-list-item">利用可不可</th>
+        <th class="sticky_col coupon-list-item">割引タイプ</th>
+        <th class="sticky_col coupon-list-item">割引額・割引率・割増率</th>
+        <th class="sticky_col coupon-list-item">上限日数FROM</th>
+        <th class="sticky_col coupon-list-item">増減日数TO</th>
+        <th class="sticky_col coupon-list-item">適用開始納期日</th>
+      </tr>
+      <tr>
+        <td class="coupon-list-item"><button class="coupon-detail-button">詳細</button></th>
+        <td class="coupon-list-item">2024/04/23</td>
+        <td class="coupon-list-item">営業A_顧客11_春割</td>
+        <td class="coupon-list-item">A_11_Spring</td>
+        <td class="coupon-list-item">適用期間有</td>
+        <td class="coupon-list-item">2024/04/01</td>
+        <td class="coupon-list-item">2024/07/01</td>
+        <td class="coupon-list-item">利用可能</td>
+        <td class="coupon-list-item">値引</td>
+        <td class="coupon-list-item">-5.5%</td>
+        <td class="coupon-list-item">-</td>
+        <td class="coupon-list-item">-</td>
+        <td class="coupon-list-item">-</td>
+      </tr>
+      <tr>
+        <td class="coupon-list-item"><button class="coupon-detail-button">詳細</button></th>
+        <td class="coupon-list-item">2024/04/23</td>
+        <td class="coupon-list-item">営業A_顧客11_春割</td>
+        <td class="coupon-list-item">A_11_Spring</td>
+        <td class="coupon-list-item">適用期間有</td>
+        <td class="coupon-list-item">2024/04/01</td>
+        <td class="coupon-list-item">2024/07/01</td>
+        <td class="coupon-list-item">利用可能</td>
+        <td class="coupon-list-item">値引</td>
+        <td class="coupon-list-item">-5.5%</td>
+        <td class="coupon-list-item">-</td>
+        <td class="coupon-list-item">-</td>
+        <td class="coupon-list-item">-</td>
+      </tr>
+      <tr>
+        <td class="coupon-list-item"><button class="coupon-detail-button">詳細</button></th>
+        <td class="coupon-list-item">2024/04/23</td>
+        <td class="coupon-list-item">営業A_顧客11_春割</td>
+        <td class="coupon-list-item">A_11_Spring</td>
+        <td class="coupon-list-item">適用期間有</td>
+        <td class="coupon-list-item">2024/04/01</td>
+        <td class="coupon-list-item">2024/07/01</td>
+        <td class="coupon-list-item">利用可能</td>
+        <td class="coupon-list-item">値引</td>
+        <td class="coupon-list-item">-5.5%</td>
+        <td class="coupon-list-item">-</td>
+        <td class="coupon-list-item">-</td>
+        <td class="coupon-list-item">-</td>
+      </tr>
+      <tr>
+        <td class="coupon-list-item"><button class="coupon-detail-button">詳細</button></th>
+        <td class="coupon-list-item">2024/04/23</td>
+        <td class="coupon-list-item">営業A_顧客11_春割</td>
+        <td class="coupon-list-item">A_11_Spring</td>
+        <td class="coupon-list-item">適用期間有</td>
+        <td class="coupon-list-item">2024/04/01</td>
+        <td class="coupon-list-item">2024/07/01</td>
+        <td class="coupon-list-item">利用可能</td>
+        <td class="coupon-list-item">値引</td>
+        <td class="coupon-list-item">-5.5%</td>
+        <td class="coupon-list-item">-</td>
+        <td class="coupon-list-item">-</td>
+        <td class="coupon-list-item">-</td>
+      </tr>
+      <tr>
+        <td class="coupon-list-item"><button class="coupon-detail-button">詳細</button></th>
+        <td class="coupon-list-item">2024/04/23</td>
+        <td class="coupon-list-item">営業A_顧客11_春割</td>
+        <td class="coupon-list-item">A_11_Spring</td>
+        <td class="coupon-list-item">適用期間有</td>
+        <td class="coupon-list-item">2024/04/01</td>
+        <td class="coupon-list-item">2024/07/01</td>
+        <td class="coupon-list-item">利用可能</td>
+        <td class="coupon-list-item">値引</td>
+        <td class="coupon-list-item">-5.5%</td>
+        <td class="coupon-list-item">-</td>
+        <td class="coupon-list-item">-</td>
+        <td class="coupon-list-item">-</td>
+      </tr>
+      <tr>
+        <td class="coupon-list-item"><button class="coupon-detail-button">詳細</button></th>
+        <td class="coupon-list-item">2024/04/23</td>
+        <td class="coupon-list-item">営業A_顧客11_春割</td>
+        <td class="coupon-list-item">A_11_Spring</td>
+        <td class="coupon-list-item">適用期間有</td>
+        <td class="coupon-list-item">2024/04/01</td>
+        <td class="coupon-list-item">2024/07/01</td>
+        <td class="coupon-list-item">利用可能</td>
+        <td class="coupon-list-item">値引</td>
+        <td class="coupon-list-item">-5.5%</td>
+        <td class="coupon-list-item">-</td>
+        <td class="coupon-list-item">-</td>
+        <td class="coupon-list-item">-</td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="coupon-list-page">
+    <p class="coupon-now-show">1-10件表示</p>
+    <div class="coupon-page-button-outer">
+      <button class="coupon-page-before"><</button>
+      <button class="coupon-page-number active">1</button>
+      <button class="coupon-page-number">2</button>
+      <label class="coupon-page-dot">･･･</label>
+      <button class="coupon-page-number">9</button>
+      <button class="coupon-page-number">10</button>
+      <button class="coupon-page-after">></button>
+    </div>
+  </div>
+
+</body>
+</html>
